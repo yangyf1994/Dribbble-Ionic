@@ -35,8 +35,21 @@ angular.module('starter.controllers', [])
   $scope.chat = Chats.get($stateParams.chatId);
 })
 
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
+.controller('AccountCtrl', function($scope,User) {
+
+  $scope.LoggedIn = false;
+
+  $scope.login = function (user) {
+
+    User.$authWithPassword({
+      email: user.email,
+      password: user.password
+    }).then(function(authData) {
+      $scope.userInfo = authData.password.email;
+      $scope.LoggedIn = true;
+    }).catch(function(error) {
+      console.error("Authentication failed:", error);
+    });
+  }
+
 });

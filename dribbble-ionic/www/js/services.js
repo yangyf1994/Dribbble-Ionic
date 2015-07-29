@@ -8,6 +8,13 @@ angular.module('starter.services', [])
       });
   }])
 
+.factory('User',function ($firebase,$firebaseAuth) {
+  //TODO: user databse
+  var ref = new Firebase("https://expensetrackionic.firebaseio.com/");
+
+  return $firebaseAuth(ref);
+
+})
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array
 

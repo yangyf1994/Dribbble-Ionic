@@ -10,6 +10,7 @@ angular.module('starter', [
   'starter.controllers',
   'starter.services',
   'ngResource',
+  'firebase'
   ])
 
 .run(function($ionicPlatform) {
@@ -81,6 +82,13 @@ angular.module('starter', [
         templateUrl: 'templates/tab-account.html',
         controller: 'AccountCtrl'
       }
+    }
+  })
+  .state('tab.register',{
+    url:'/account/register',
+    views:{
+      templateUrl:'templates/register.html',
+      controller:'RegisterCtrl'
     }
   });
 
