@@ -1,29 +1,40 @@
 <ion-view view-title="Account">
+
   <ion-content>
-  <div ng-hide="LoggedIn">
-	  	<div class="list card">
-				<label class="item item-input">
-				  <input type="text" placeholder="Email" ng-model="user.email">
-				</label>
-				<label class="item item-input">
-				  <input type="password" placeholder="Password" ng-model="user.password">
-			 </label>
-		  </div>
+	  <div ng-hide="LoggedIn">
+		  	<div class="list card">
+					<label class="item item-input">
+					  <input type="text" placeholder="Email" ng-model="user.email">
+					</label>
+					<label class="item item-input">
+					  <input type="password" placeholder="Password" ng-model="user.password">
+				 </label>
+			  </div>
 
-		  <div class="row">
-	  		<div class="col-50 col-offset-25">
-					<button class="button button-full button-positive " ng-click="login(user)" >
-					<i class="icon-left ion-log-in"></i> Log In
-					</button>
+			  <div class="row">
+		  		<div class="col-80 col-offset-10">
+						  <button class="button button-full button-positive " ng-click="login(user)">
+						  	<i class="icon-left ion-log-in"> </i> Log In
+						  </button>
+					</div>
 				</div>
-			</div>
-	</div>
 
-	<div class="card" ng-show="LoggedIn">
-	  <div class="item item-text-wrap">
-			You are logged in as: {{userInfo}}
-	  </div>
-	</div>
+				<br><br><br><br><br><br><br><br><br>
+				<div class="row">
+		  		<div class="col-80 col-offset-10">
+						<a class="button button-full button-outline button-positive" href="#/tab/account/register">
+						Sign up for Let's Date
+						</a>
+					</div>
+				</div>
+		</div>
+
+		<div class="card" ng-show="LoggedIn">
+		  <div class="item item-text-wrap">
+				You are logged in as: {{userInfo}}
+		  </div>
+		</div>
 
   </ion-content>
+
 </ion-view>

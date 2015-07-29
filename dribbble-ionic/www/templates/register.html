@@ -1,0 +1,24 @@
+<ion-view view-title="Register">
+  <ion-content>
+		  <div class="list card">
+					<label class="item item-input">
+					  <input type="text" placeholder="Email" ng-model="user.email">
+					</label>
+					<label class="item item-input">
+					  <input type="password" placeholder="Password" ng-model="user.password">
+				 </label>
+				 <label class="item item-input">
+					  <input type="text" placeholder="Your Name" ng-model="user.name">
+				 </label>
+			</div>
+
+			<div class="row">
+				<div class="col col-70 col-offset-10">
+					<button class="button button-full button-positive" ng-click="register(user)">
+						<i class="icon-left ion-heart"></i>Register
+					</button>
+				</div>
+			</div>
+
+  </ion-content>
+</ion-view>

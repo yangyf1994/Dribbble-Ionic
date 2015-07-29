@@ -87,8 +87,10 @@ angular.module('starter', [
   .state('tab.register',{
     url:'/account/register',
     views:{
-      templateUrl:'templates/register.html',
-      controller:'RegisterCtrl'
+      'tab-account':{
+        templateUrl:'templates/register.html',
+        controller:'RegisterCtrl'
+      }
     }
   });
 
