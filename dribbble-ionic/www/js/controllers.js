@@ -48,13 +48,41 @@ angular.module('starter.controllers', [])
       $scope.userInfo = authData.password.email;
       $scope.LoggedIn = true;
     }).catch(function(error) {
-      console.error("Authentication failed:", error);
+      $scope.error_message = error.code;
     });
   }
 
 })
 
-.controller('RegisterCtrl',function ($scope) {
+.controller('RegisterCtrl',function ($scope,User,$ionicHistory,$ionicPopup,$timeout) {
+
+  $scope.register = function (user) {
+
+    User.$createUser({
+      email: user.email,
+      password: user.password
+      }).then(function(userData) {
+
+        console.log("User " + user.name+ " created successfully!");
+
+        var alertPopup = $ionicPopup.alert({
+          title: 'Register Success!',
+          template: 'Thank you '+user.name+' !'+'<br>You are now directed to the login page.'
+        });
+
+        alertPopup.then(function(res) {
+          $ionicHistory.goBack();
+        });
+
+        $timeout(function() {
+            alertPopup.close();
+        }, 5000);
+
+    }).catch(function(error) {
+        console.error("Error: ", error.code);
+      });
+   }
+
 
 });
 

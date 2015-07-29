@@ -11,6 +11,9 @@
 				 </label>
 			  </div>
 
+			  <div class="row" ng-show="error_message">
+			  	<p class="button button-clear button-assertive"> Error: {{error_message|lowercase}}</p>
+			  </div>
 			  <div class="row">
 		  		<div class="col-80 col-offset-10">
 						  <button class="button button-full button-positive " ng-click="login(user)">
@@ -19,11 +22,11 @@
 					</div>
 				</div>
 
-				<br><br><br><br><br><br><br><br><br>
+				<br><br><br>
 				<div class="row">
-		  		<div class="col-80 col-offset-10">
-						<a class="button button-full button-outline button-positive" href="#/tab/account/register">
-						Sign up for Let's Date
+		  		<div class="col-50 col-offset-25">
+						<a class="stale" href="#/tab/account/register">
+							<h5><b>Sign up for Let's Date</b></h5>
 						</a>
 					</div>
 				</div>
