@@ -2,26 +2,28 @@ angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope,dribble) {
 
-    dribble.query({},function (value) {
-      $scope.shots=value.shots;
-      console.log($scope.shots);
-    },
-    function (err) {
-      console.log(err);
-    });
+  $scope.current_page = 1;
+  $scope.shots = [];
 
+  $scope.loadItems = function () {
+
+      dribble.query({page:$scope.current_page,per_page:10},function (value) {
+        console.log('loading page '+$scope.current_page);
+        $scope.current_page++;
+        $scope.shots=$scope.shots.concat(value.shots);
+        console.log($scope.shots);
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+      },
+      function (err) {
+        console.log(err);
+      });
+
+  };
 
 
 })
 
 .controller('ChatsCtrl', function($scope, Chats) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
 
   $scope.chats = Chats.all();
   $scope.remove = function(chat) {
