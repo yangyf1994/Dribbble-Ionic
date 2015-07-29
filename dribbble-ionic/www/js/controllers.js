@@ -2,13 +2,15 @@ angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope,dribble) {
 
-  dribble.query({},function (value) {
-    $scope.shots = value.shots;
-    console.log($scope.shots);
-  },
-  function (err) {
-    console.log(err);
-  });
+    dribble.query({},function (value) {
+      $scope.shots=value.shots;
+      console.log($scope.shots);
+    },
+    function (err) {
+      console.log(err);
+    });
+
+
 
 })
 
