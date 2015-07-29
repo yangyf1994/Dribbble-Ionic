@@ -1,4 +1,13 @@
 angular.module('starter.services', [])
+.factory('dribble', ['$resource',
+  function ($resource) {
+      return $resource('', {'callback': 'JSON_CALLBACK'}, {
+          query: {
+              method: 'JSONP',
+              url: 'http://api.dribbble.com/shots/popular'
+          }
+      });
+  }])
 
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array

@@ -1,28 +1,26 @@
 <ion-view view-title="Dashboard">
   <ion-content class="padding">
-    <div class="list card">
-      <div class="item item-divider">Recent Updates</div>
-      <div class="item item-body">
-        <div>
-          There is a fire in <b>sector 3</b>
-        </div>
-      </div>
+
+
+
+  <div class="list card" ng-repeat="shot in shots">
+
+    <div class="item item-avatar">
+      <img ng-src="{{shot.player.avatar_url}}">
+      <h2>{{shot.player.name}}</h2>
+      <p>{{shot.created_at}}'</p>
     </div>
-    <div class="list card">
-      <div class="item item-divider">Health</div>
-      <div class="item item-body">
-        <div>
-          You ate an apple today!
-        </div>
-      </div>
+
+    <div class="item item-body">
+      <img class="full-image" ng-src="{{shot.image_url}}">
+      <div ng-bind-html="shot.description | to_trusted"></div>
+      <p>
+        <a href="#" class="subdued">{{shot.likes_count}} Like</a>
+        <a href="#" class="subdued">{{shot.comments_count}} Comments</a>
+      </p>
     </div>
-    <div class="list card">
-      <div class="item item-divider">Upcoming</div>
-      <div class="item item-body">
-        <div>
-          You have <b>29</b> meetings on your calendar tomorrow.
-        </div>
-      </div>
-    </div>
+
+</div>
+
   </ion-content>
 </ion-view>
