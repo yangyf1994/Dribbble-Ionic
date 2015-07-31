@@ -10,7 +10,8 @@ angular.module('starter', [
   'starter.controllers',
   'starter.services',
   'ngResource',
-  'firebase'
+  'firebase',
+  'ngMessages'
   ])
 
 .run(function($ionicPlatform) {
@@ -104,4 +105,21 @@ angular.module('starter', [
         return $sce.trustAsHtml(text);
     };
 }])
+.directive("formattedAsEmail", function() {
+    return {
+      restrict: "A",
+      require: "?ngModel",
+      link: function(scope, element, attributes, ngModel) {
+        ngModel.$validators.wrongFormat = function(modelValue) {
+          if (modelValue) {
+            var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+            return re.test(modelValue);
+          }
+          else {
+            return true;
+          }
+        };
+      }
+    };
+})
 .value("YO_API_TOKEN",'ec396f80-2742-4c80-a834-1459b3a3f42c')

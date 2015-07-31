@@ -35,21 +35,42 @@ angular.module('starter.controllers', [])
   $scope.chat = Chats.get($stateParams.chatId);
 })
 
-.controller('AccountCtrl', function($scope,User) {
+.controller('AccountCtrl', function($scope,User,PopUp) {
 
-  $scope.login = function (user) {
+  $scope.login = function (form,user) {
 
-    User.$authWithPassword({
-      email: user.email,
-      password: user.password
-    }).then(function(authData) {
-      $scope.userInfo = authData.password.email;
-      $scope.error_message=null;
-      user.email='';
-      user.password='';
-    }).catch(function(error) {
-      $scope.error_message = error.code;
-    });
+    if(!form.$valid){
+      var popUpContent = {
+        title: "Warning",
+        template: "Please enter a valid email and password",
+        timeout: 5000,
+      }
+      PopUp.showPopUp(popUpContent,null);
+    }
+    else{
+      User.$authWithPassword({
+        email: user.email,
+        password: user.password
+      }).then(function(authData) {
+        $scope.userInfo = authData.password.email;
+        user.email='';
+        user.password='';
+      }).catch(function(error) {
+        console.log(error);
+        var popUpContent = {
+          title: "Error",
+          template:
+          "<i class='icon-left ion-alert-circled'></i>"+
+          angular.lowercase(error.code)
+        }
+        PopUp.showPopUp(popUpContent,function () {
+          user.email='';
+          user.password='';
+        });
+      });
+    }
+
+
   }
 
   $scope.logout = function () {
@@ -58,7 +79,7 @@ angular.module('starter.controllers', [])
   }
 })
 
-.controller('RegisterCtrl',function ($scope,User,$ionicHistory,$ionicPopup,$timeout,YO_API_TOKEN) {
+.controller('RegisterCtrl',function ($scope,User,$ionicHistory,PopUp,YO_API_TOKEN) {
 
   $scope.register = function (user) {
 
@@ -66,25 +87,30 @@ angular.module('starter.controllers', [])
       email: user.email,
       password: user.password
       }).then(function(userData) {
-
         console.log("User " + user.name+ " created successfully!");
 
-        var alertPopup = $ionicPopup.alert({
+        var popUpContent = {
           title: 'Register Success!',
-          template: 'Thank you '+user.name+' !'+'<br>You are now directed to the login page.'
-        });
+          template: 'Thank you '+user.name+' !'+'<br>You are now directed to the login page.',
+          timeout:5000
+        };
 
-        alertPopup.then(function(res) {
+        PopUp.showPopUp(popUpContent,function() {
           $ionicHistory.goBack();
         });
 
-        $timeout(function() {
-            alertPopup.close();
-        }, 5000);
-
     }).catch(function(error) {
-        console.error("Error: ", error.code);
-      });
+      var popUpContent = {
+        title: 'Error',
+        template: angular.lowercase(error.code)
+      };
+
+      PopUp.showPopUp(popUpContent,function () {
+        user.email='';
+        user.password='';
+        user.name ='';
+      })
+    });
    }
 
 

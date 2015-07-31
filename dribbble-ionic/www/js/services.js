@@ -15,6 +15,35 @@ angular.module('starter.services', [])
   return $firebaseAuth(ref);
 
 })
+.factory('PopUp',function ($ionicPopup,$timeout) {
+
+  return{
+      /*
+      popUpContent
+        tilte:
+        template:
+        timeout: in millisecs
+      */
+    showPopUp: function (popUpContent,callback) {
+      var alertPopUp = $ionicPopup.alert({
+        title: popUpContent.title,
+        template: popUpContent.template,
+        okType: "button-block button-positive"
+      });
+      alertPopUp.then(function (res) {
+        if(callback){
+          callback();
+        }
+      });
+      if(popUpContent.timeout){
+        $timeout(function () {
+          alertPopUp.close();
+        },popUpContent.timeout)
+      }
+    }
+  }
+
+})
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array
 

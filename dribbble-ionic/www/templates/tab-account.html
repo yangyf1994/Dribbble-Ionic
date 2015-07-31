@@ -2,25 +2,41 @@
 
   <ion-content>
 	  <div ng-hide="userInfo">
-		  	<div class="list card">
-					<label class="item item-input">
-					  <input type="text" placeholder="Email" ng-model="user.email">
-					</label>
-					<label class="item item-input">
-					  <input type="password" placeholder="Password" ng-model="user.password">
-				 </label>
-			  </div>
 
-			  <div class="row" ng-show="error_message">
-			  	<p class="button button-clear button-assertive"> Error: {{error_message|lowercase}}</p>
-			  </div>
-			  <div class="row">
-		  		<div class="col-80 col-offset-10">
-						  <button class="button button-full button-positive " ng-click="login(user)">
-						  	<i class="icon-left ion-log-in"> </i> Log In
-						  </button>
-					</div>
-				</div>
+ 		<form name="authorizationForm" novalidate="" ng-submit="login(authorizationForm,authorization)">
+
+          <div class="list card">
+
+            <label class="item item-input" ng-class="{ 'has-errors' : authorizationForm.username.$invalid, 'no-errors' : authorizationForm.username.$valid}">
+              <span class="input-label"><b>Email Address: </b></span>
+              <input type="text" name="username" ng-model="authorization.email" formatted-as-email required>
+            </label>
+
+            <div class="error-container" ng-show="authorizationForm.username.$error" ng-messages="authorizationForm.username.$error">
+              <div ng-messages-include="error-list.html"></div>
+            </div>
+
+            <label class="item item-input" ng-class="{ 'has-errors' : authorizationForm.password.$invalid, 'no-errors' : authorizationForm.password.$valid}">
+              <span class="input-label"><b>Password:</b></span>
+              <input type="password" name="password" ng-model="authorization.password"  required>
+            </label>
+
+            <div class="error-container last-error-container" ng-show="authorizationForm.password.$error" ng-messages="authorizationForm.password.$error">
+                <div ng-messages-include="error-list.html"></div>
+            </div>
+
+          </div>
+
+        <div class="row">
+        	<div class="col col-50 col-offset-25">
+	          <button class="button button-full button-positive" type="submit">
+	          <i class="icon-left ion-log-in"></i>
+	            Sign In
+	          </button>
+        	</div>
+        </div>
+      </form>
+
 
 				<br><br><br>
 				<div class="row">
@@ -30,6 +46,7 @@
 						</a>
 					</div>
 				</div>
+
 		</div>
 
 		<div class="card" ng-show="userInfo">
@@ -42,6 +59,19 @@
 			  </button>
 
 		</div>
+
+	<!-- Templates for error messages-->
+	<script id="error-list.html" type="text/ng-template">
+	    <div class="error" ng-message="required">
+	        <i class="ion-information-circled"></i>
+	        This field is required!
+	    </div>
+
+	    <div class="error" ng-message="wrongFormat">
+	        <i class="ion-information-circled"></i>
+	        Please enter a valid email address
+	    </div>
+	</script>
 
   </ion-content>
 
