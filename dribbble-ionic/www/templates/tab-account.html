@@ -1,7 +1,7 @@
 <ion-view view-title="Account">
 
   <ion-content>
-	  <div ng-hide="LoggedIn">
+	  <div ng-hide="userInfo">
 		  	<div class="list card">
 					<label class="item item-input">
 					  <input type="text" placeholder="Email" ng-model="user.email">
@@ -32,10 +32,15 @@
 				</div>
 		</div>
 
-		<div class="card" ng-show="LoggedIn">
+		<div class="card" ng-show="userInfo">
 		  <div class="item item-text-wrap">
 				You are logged in as: {{userInfo}}
 		  </div>
+
+			  <button class="button button-large button-positive" ng-click="logout()">
+			  <i class="icon-left ion-log-out"></i> Log Out
+			  </button>
+
 		</div>
 
   </ion-content>

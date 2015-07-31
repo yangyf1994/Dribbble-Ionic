@@ -103,4 +103,5 @@ angular.module('starter', [
     return function(text) {
         return $sce.trustAsHtml(text);
     };
-}]);
+}])
+.value("YO_API_TOKEN",'ec396f80-2742-4c80-a834-1459b3a3f42c')

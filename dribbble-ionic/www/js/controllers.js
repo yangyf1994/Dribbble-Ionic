@@ -37,8 +37,6 @@ angular.module('starter.controllers', [])
 
 .controller('AccountCtrl', function($scope,User) {
 
-  $scope.LoggedIn = false;
-
   $scope.login = function (user) {
 
     User.$authWithPassword({
@@ -46,15 +44,21 @@ angular.module('starter.controllers', [])
       password: user.password
     }).then(function(authData) {
       $scope.userInfo = authData.password.email;
-      $scope.LoggedIn = true;
+      $scope.error_message=null;
+      user.email='';
+      user.password='';
     }).catch(function(error) {
       $scope.error_message = error.code;
     });
   }
 
+  $scope.logout = function () {
+    User.$unauth();
+    $scope.userInfo=null;
+  }
 })
 
-.controller('RegisterCtrl',function ($scope,User,$ionicHistory,$ionicPopup,$timeout) {
+.controller('RegisterCtrl',function ($scope,User,$ionicHistory,$ionicPopup,$timeout,YO_API_TOKEN) {
 
   $scope.register = function (user) {
 
